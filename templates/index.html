@@ -25,12 +25,15 @@
           <h1 class="display-4">Generic Cupcake Shop</h1>
         </div>
       </div>
-      <div class="container" id="list"></div>
+      <div class="container" id="list">
         <div class="row row-cols-1 row-cols-md-3 g-4" id="cc-cards">
           <!-- cupcakes will MAGICALLY appear here -->
         </div>
+        <div class="btn-group m-3">
+          <a class="btn btn-success" id="to-add">Add Cupcake</a>
+        </div>
       </div>
-      <div class="container" id="form" style="display: hide">
+      <div class="container" id="form" style="display: none">
         <h2>Add a silly cupcake</h2>
         <form id="new-cupcake-form" class="mb-3">
           <div class="mb-3">
@@ -70,8 +73,8 @@
             />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
+          <a id="to-list" class="btn btn-info">Back to list</a>
         </form>
-        <button class="btn btn-primary" id="to-add">Add Cupcake</button>
       </div>
     </div>
     <script

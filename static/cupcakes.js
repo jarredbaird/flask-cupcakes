@@ -1,6 +1,6 @@
 BASE_URL = "http://localhost:5000/api";
 
-function generateCupcardCard(cupcake) {
+function generateCupcakeCard(cupcake) {
   return `
         <div class="col" data-cc-id=${cupcake.cc_id}>
           <div class="card">
@@ -9,9 +9,9 @@ function generateCupcardCard(cupcake) {
               <h5 class="card-title">${cupcake.flavor}</h5>
               <p class="card-text">Size: ${cupcake.size}</p>
               <p class="card-text">Rating: ${cupcake.rating}</p>
-              <button type="button" 
+              <a type="button" 
                       class="btn btn-danger"
-                      id="delete-${cupcake.cc_id}>Delete</button>
+                      id="delete-${cupcake.cc_id}">Delete</a>
             </div>
           </div>
         </div>`;
@@ -20,11 +20,9 @@ function generateCupcardCard(cupcake) {
 async function displayCupcakeCards() {
   const response = await axios.get(`${BASE_URL}/cupcakes`);
   for (let cc of response.data.cupcakes) {
-    let newCupcake = $(generateCupcakeHTML(cc));
+    let newCupcake = $(generateCupcakeCard(cc));
     $("#cc-cards").append(newCupcake);
   }
-  $("#cc-cards").append("<button id='to_list'>Back to list</button>");
-  debugger;
 }
 
 function toggleListAndForm() {
@@ -32,12 +30,12 @@ function toggleListAndForm() {
   $("#form").toggle();
 }
 
-$("#to-list").on("submit", (e) => {
+$("#to-list").on("click", (e) => {
   e.preventDefault();
   toggleListAndForm();
 });
 
-$("#to-add").on("submit", (e) => {
+$("#to-add").on("click", (e) => {
   e.preventDefault();
   toggleListAndForm();
 });
@@ -57,7 +55,7 @@ $("#form").on("submit", async function (e) {
     image,
   });
 
-  let cc = $(generateCupcardCard(response.data.cupcake));
+  let cc = $(generateCupcakeCard(response.data.cupcake));
   $("#cc-cards").append(cc);
 });
 
@@ -67,7 +65,7 @@ $("#list").on("click", ".btn-danger", async function (e) {
   let cc_id = $cupcake.attr("data-cc-id");
 
   await axios.delete(`${BASE_URL}/cupcakes/${cc_id}`);
-  $cupcake.remove;
+  $cupcake.remove();
 });
 
 $(displayCupcakeCards);
